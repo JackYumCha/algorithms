@@ -6,6 +6,8 @@ returnType dfs(Node n, parameters){
   returnType result = [compute result for current node];
   // optional early termination
   
+  // order of do_something on node and children will affect the order of traverse
+  
   // optional depend on traverse order
   do_something(n);
   
