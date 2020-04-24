@@ -63,3 +63,37 @@ class Solution {
         nums[a] = c;
     }
 }
+
+// 5ms HashSet method 
+class Solution{
+    public List<List<Integer>> permute(int[] nums) {
+        HashSet<Integer> hs = new HashSet();
+        for(int n : nums) hs.add(n);
+        result = new ArrayList();
+        dfs(hs, new LinkedList());
+        return result;
+    }
+    
+    void dfs(HashSet<Integer> hs, LinkedList<Integer> ll){
+        if(hs.isEmpty()){
+            ArrayList<Integer> a =new ArrayList();
+            for(int i : ll) a.add(i);
+            result.add(a);
+        }
+        else{
+            int[] arr = new int[hs.size()];
+            int i = 0;
+            for(int n: hs){
+                arr[i] = n;
+                i++;
+            }
+            for(int n: arr){
+                hs.remove(n); // do
+                ll.offerLast(n); // do
+                dfs(hs, ll);
+                ll.pollLast(); // undo
+                hs.add(n); // undo
+            }
+        }
+    }
+}
