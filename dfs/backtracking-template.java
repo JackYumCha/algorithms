@@ -1,6 +1,12 @@
 // parameters will change 
 parameterType parameters;
 
+// other shared parameters
+shareParameterType sharedParameters;
+
+// aggration results
+resultType results;
+
 returnType dfs(Node n, parameters){
   Node[] next = [get connected children or neightbours];
   
