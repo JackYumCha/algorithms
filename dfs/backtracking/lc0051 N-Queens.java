@@ -1,4 +1,4 @@
-// 1ms 99.76% both method works within 1ms
+// 1ms 99.76% both methods work within 1ms
 
 // using int instead of boolean[]
 class Solution {
