@@ -57,3 +57,65 @@ class Solution {
         }
     }
 }
+
+// 2ms 98.80% 
+class Solution {
+    int gd[][]; // integer form of board
+    int[] row, col, sub;
+    public void solveSudoku(char[][] board) {
+        row = new int[9];
+        col = new int[9];
+        sub = new int[9];
+        gd = new int[9][9];
+        for(int r = 0; r < 9; r++){
+            for(int c = 0; c < 9; c++){
+                char i = board[r][c];
+                int v = i == '.' ? 0 : (i - '0');
+                gd[r][c] = v;
+                if(v == 0) continue;
+                row[r] |= 1<<v;
+                col[c] |= 1<<v;
+                sub[(r/3)*3 + c/3] |= 1<<v;
+            }
+        }
+        
+        dfs(0, 0);
+        // after dfs
+        for(int r = 0; r < 9; r++){
+            for(int c = 0; c < 9; c++){
+                board[r][c] = (char)('0' + gd[r][c]);
+            }
+        }
+    }
+    
+    boolean dfs(int r, int c){
+        if(c == 9){
+            c = 0;
+            r ++;
+        }
+        if(r == 9){ // end of dfs
+            return true;
+        }
+        else{
+            if(gd[r][c] == 0){
+                for(int v = 1; v < 10; v++){
+                    if(((row[r]>>v)&1) == 1 || ((col[c]>>v)&1) == 1 || ((sub[(r/3)*3 + c/3]>>v)&1) == 1) continue;
+                    row[r] |= 1<<v; // v = 3  0000001 -> 0001000
+                    col[c] |= 1<<v;
+                    sub[(r/3)*3 + c/3] |= 1<<v;
+                    gd[r][c] = v;
+                    if(dfs(r, c+1)) return true;
+                    // gd[r][c] = 0; // must undo
+                    row[r] &= ~(1<<v); // 0001000 -> ~ 1110111
+                    col[c] &= ~(1<<v);
+                    sub[(r/3)*3 + c/3] &= ~(1<<v);
+                }
+                gd[r][c] = 0; // must undo
+            }
+            else{
+                if(dfs(r, c+1)) return true;
+            }
+            return false;
+        }
+    }
+}
