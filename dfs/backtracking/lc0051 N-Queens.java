@@ -40,9 +40,9 @@ class Solution {
                 down |= (1 << (n-1-r+c));
                 ci[r] = c;
                 dfs(r+1);
-                col &= -1 ^ (1 << c);
-                up &=  -1 ^ (1 << (r+c));
-                down &= -1 ^ (1 << (n-1-r+c));
+                col &= ~(1 << c);
+                up &=  ~(1 << (r+c));
+                down &= ~(1 << (n-1-r+c));
             }
         }
     }
