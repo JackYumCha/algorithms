@@ -1,4 +1,6 @@
-// 1ms 99.76%
+// 1ms 99.76% both method works within 1ms
+
+// using int instead of boolean[]
 class Solution {
     int col, up, down; // row, 
     int n;
@@ -32,23 +34,21 @@ class Solution {
         else{
             for(int c = 0; c < n; c++){
                 // test if (r,c) is available
-                if(((col>>c)&1) == 1 || ((up>>(r+c))&1) == 1 || ((down>>(n-1-r+c))&1) == 1) continue;
-                col = col | (1 << c);
-                up = up | (1 << (r+c));
-                down = down | (1 << (n-1-r+c));
+                if(( (col>>c) & 1) == 1 || ( (up>>(r+c)) & 1) == 1 || ( (down>>(n-1-r+c)) & 1) == 1) continue;
+                col |= (1 << c);
+                up |= (1 << (r+c));
+                down |= (1 << (n-1-r+c));
                 ci[r] = c;
                 dfs(r+1);
-                col =  col & ((~1) << c); // -1 FFFFFFFF
-                up = up & ((~1) << (r+c));
-                down = down & ((~1) << (n-1-r+c));
+                col &= -1 ^ (1 << c);
+                up &=  -1 ^ (1 << (r+c));
+                down &= -1 ^ (1 << (n-1-r+c));
             }
         }
     }
 }
 
-
-/*
-
+// using boolean[]
 class Solution {
     boolean[] col, up, down; // row, 
     int n;
@@ -95,8 +95,3 @@ class Solution {
         }
     }
 }
-
- 
-
-
-*/
