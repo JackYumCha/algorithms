@@ -25,7 +25,7 @@ void main(){
     return collectedValues;
 }
 
-void dfs(LL ll){ // heirholzer
+void dfs(LL ll){ // Hierholzer
     String from = ll.t.v;
     ListType listOfNexts = getNextsFor(from);
     if(listOfNexts == null || listOfNexts.isEmpty()) return;
