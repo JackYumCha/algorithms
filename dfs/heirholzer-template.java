@@ -25,6 +25,7 @@ void main(){
     return collectedValues;
 }
 
+// graph representation
 HashMap<from, List/Stack/Queue<to>> / Array[from][to] graph;
 
 void dfs(LL ll){ // Hierholzer
