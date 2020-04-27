@@ -25,6 +25,8 @@ void main(){
     return collectedValues;
 }
 
+HashMap<from, List/Stack/Queue<to>> / Array[from][to] graph;
+
 void dfs(LL ll){ // Hierholzer
     String from = ll.t.v;
     ListType listOfNexts = getNextsFor(from);
