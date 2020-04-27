@@ -1,12 +1,14 @@
+// linked list node
 class N{
-    N n;
-    ValueType v;
+    N n; // pointer to next Node
+    ValueType v; // value
     N(ValueType v){
         this.v = v;
     }
 }
+// linked list
 class LL{
-    N h, t;
+    N h, t; // head and tail Nodes
     LL(ValueType v){
         N n = new N(v);
         h = n;
