@@ -29,12 +29,6 @@ class AutocompleteSystem {
     }
 }
 
-/**
- * Your AutocompleteSystem object will be instantiated and called as such:
- * AutocompleteSystem obj = new AutocompleteSystem(sentences, times);
- * List<String> param_1 = obj.input(c);
- */
-
 class T{
     static Comparator cpt = new Comparator(){
         @Override
