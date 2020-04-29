@@ -1,3 +1,90 @@
+// 109ms 92.80%
+class AutocompleteSystem {
+    HashMap<String, Integer> hm = new HashMap();
+    T t = new T();
+    StringBuilder stb;
+    public AutocompleteSystem(String[] sentences, int[] times) {
+        stb = new StringBuilder();
+        int n = times.length;
+        for(int j = 0; j < n; j++){
+            add(sentences[j], times[j]);
+        }
+    }
+    static ArrayList<String> empty = new ArrayList();
+    public List<String> input(char c) {
+        if(c == '#'){
+            add(stb.toString(), 1);
+            stb = new StringBuilder();
+            return empty;
+        }
+        else{
+            stb.append(c);
+            String s = stb.toString();
+            return t.query(s, 0, s.length());
+        }
+    }
+    
+    void add(String s, int f){
+        hm.put(s, hm.getOrDefault(s, 0) + f);
+        t.load(s, 0, s.length(), hm);
+    }
+}
+
+class T{
+    T[] ts = new T[27]; // include ' '
+    ArrayList<String> arr = new ArrayList();
+    void load(String s, int i, int l, HashMap<String, Integer> hm){
+        PriorityQueue<C> q = new PriorityQueue(C.c);
+        boolean nf = true;
+        for(String a: arr){
+            if(a.equals(s)) nf = false;
+            q.add(new C(a, hm.get(a)));
+        }
+        if(nf) q.add(new C(s, hm.get(s)));
+        arr.clear();
+        while(!q.isEmpty() && arr.size() < 3){
+            arr.add(q.remove().s);
+        }
+        if(i < l){
+            int j = index(s.charAt(i));
+            if(ts[j] == null) ts[j] = new T();
+            ts[j].load(s, i + 1, l, hm); 
+        }
+    }
+    static ArrayList<String> empty = new ArrayList();
+    ArrayList<String> query(String s, int i, int l){
+        if(i == l){
+            return arr;
+        }
+        else{
+            int j = index(s.charAt(i));
+            if(ts[j] == null) return empty;
+            else return ts[j].query(s, i + 1, l);
+        }
+    }
+    static int index(char c){
+        if(c == ' ') return 0;
+        else return 1 + (c - 'a');
+    }
+}
+
+class C{
+    String s;
+    int t;
+    C(String s, int t){
+        this.s = s;
+        this.t = t;
+    }
+    static Comparator c = new Comparator(){
+        @Override
+        public int compare(Object o1, Object o2){
+            C c1 = (C)o1, c2 = (C)o2;
+            if(c1.t == c2.t) return c1.s.compareTo(c2.s);
+            else return Integer.compare(c2.t, c1.t);
+        }
+    };
+}
+
 // 161ms 48.39% 
 class AutocompleteSystem {
     T t = new T();
