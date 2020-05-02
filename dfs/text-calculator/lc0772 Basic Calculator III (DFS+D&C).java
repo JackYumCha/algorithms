@@ -12,18 +12,13 @@ public class Solution {
         int sum = 0, sign = 1;
         while(i < l){
             char c = s.charAt(i);
-            if(c == '('){
+            if(c == '(' || (c >= '0' && c <= '9') ){
                 int n = dfs2();
                 sum += sign * n;
                 sign = 1;
             }
             else if(c == ')'){
                 return sum;
-            }
-            else if(c >= '0' && c <= '9'){
-                int n = dfs2();
-                sum += sign * n;
-                sign = 1;
             }
             else if(c == '-'){
                 sign *= -1;
