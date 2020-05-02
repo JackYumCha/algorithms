@@ -1,20 +1,19 @@
 // 2ms 63.81%
 class Solution{
-    int calculate(String s){
-        int b = 0, sign = 1;
-        LinkedList<Integer> ns = new LinkedList(), os = new LinkedList(), vs = new LinkedList(), as = new LinkedList();
+    // op = + 0 - 1 * 2 / 3  | level << 2
+    public int calculate(String s) {
+        LinkedList<Integer> values = new LinkedList(), operators = new LinkedList(), vstack = new LinkedList(), opstack = new LinkedList();
+        int l = s.length(), sign = 1, level = 0;
         boolean expectNum = true;
-        for(int i = 0; i < s.length(); i++){
+        for(int i = 0; i < l; i++){
             char c = s.charAt(i);
-            switch (c){
-                case '(': b++; break;
-                case ')': b--; break;
-                case '+': {
+            switch(c){
+                case '+':{
                     if(expectNum){
                         sign = 1;
                     }
                     else{
-                        os.offerLast(0 | (b << 2));
+                        operators.offerLast(level<<2);
                         expectNum = true;
                     }
                 }break;
@@ -23,58 +22,54 @@ class Solution{
                         sign = -1;
                     }
                     else{
-                        os.offerLast(1 | (b << 2));
+                        operators.offerLast((level<<2)|1);
                         expectNum = true;
                     }
                 }break;
                 case '*':{
-                    os.offerLast(2 | (b << 2));
+                    operators.offerLast((level<<2)|2);
                     expectNum = true;
-
                 }break;
                 case '/':{
-                    os.offerLast(3 | (b << 2));
+                    operators.offerLast((level<<2)|3);
                     expectNum = true;
                 }break;
+                case '(': level++; break;
+                case ')': level--; break;
                 case ' ': break;
-                default: {
-                    int n = c - '0';
-                    while(i+1 < s.length() && '0' <= s.charAt(i+1) && s.charAt(i+1) <= '9'){
+                default:{ // 0-9
+                    int n = (c - '0');
+                    while(i+1<l && s.charAt(i+1) >= '0' && s.charAt(i+1) <= '9'){
                         i++;
-                        c = s.charAt(i);
-                        n = n * 10 + (c - '0');
+                        n = n * 10 + (s.charAt(i) - '0');
                     }
-                    ns.offerLast(n * sign);
-                    System.out.printf("%1$d\n", n * sign);
+                    values.offerLast(sign * n);
                     sign = 1;
                     expectNum = false;
-                }break;
+                };
             }
         }
-        while(!ns.isEmpty()){
-            int n = ns.pollFirst();
-            if(os.isEmpty()){
-                while(!as.isEmpty()){
-                    n = compute(vs.pollLast(), n, as.pollLast());
-                    System.out.printf("%1$d\n", n);
+        while(!values.isEmpty()){
+            int n = values.pollFirst();
+            if(operators.isEmpty()){
+                while(!vstack.isEmpty()){
+                    n = compute(vstack.pollLast(), n, opstack.pollLast());
                 }
-                return n;
+                return n; // always return from here
             }
             else{
-                int o = os.pollFirst();
-                while(!as.isEmpty() && (as.peekLast()>>1) >= (o >> 1)){
-                    n = compute(vs.pollLast(), n, as.pollLast());
-                    System.out.printf("%1$d\n", n);
+                int op = operators.pollFirst();
+                while(!opstack.isEmpty() && (opstack.peekLast()>>1) >= (op >> 1)){
+                    n = compute(vstack.pollLast(), n, opstack.pollLast());
                 }
-                vs.offerLast(n);
-                as.offerLast(o);
-            }
+                vstack.offerLast(n);
+                opstack.offerLast(op);
+            }            
         }
         return 0;
     }
     int compute(int v1, int v2, int op){
-        System.out.printf("%1$d %2$s %3$d = ", v1, new char[]{'+','-','*','/'}[op & 3], v2);
-        switch (op & 3) {
+        switch(op & 3){
             case 0: return v1 + v2;
             case 1: return v1 - v2;
             case 2: return v1 * v2;
