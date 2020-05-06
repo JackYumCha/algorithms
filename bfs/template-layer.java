@@ -6,8 +6,9 @@ void method(){
     HashSet<Type> visited = new HashSet(); 
     int stepCount = 0; // if you are counting the min number of steps
     
+    layer.add(root);
+    
     while(!layer.isEmpty()){
-        Type n = q.pollFirst();
         ListType<Type> next = new ListType();
         // check if n meets your condition, break and terminate if necessary
         for(Type n : layer){
