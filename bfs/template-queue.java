@@ -4,6 +4,8 @@ void method(){
     // dijkstra's if you need to mark something has been accessed. can be boolean[] for arry boolean[][] for matrix
     HashSet<Type> visited = new HashSet(); 
     
+    q.offerLast(root);
+    
     while(!q.isEmpty()){
       Type n = q.pollFirst();
       // check if n meets your condition, break and terminate if necessary
