@@ -10,6 +10,7 @@ class DSU{
     }
     void union(int x, int y){
         if(x < 0 || x >= l || y < 0 || y >= l) return;
+        if(x == y) return;
         int px = find(x), py = find(y);
         if(px == py) return;
         if(r[px] > r[py]){
