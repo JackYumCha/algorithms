@@ -1,20 +1,18 @@
 class Solution{
 
     public int binarySearch(){
-    
-        int left = 0, right = L; // 0 <= index < L
+        int left = 0, right = L; // 0 <= index < L (left inclusive, right exclusive)
         while(left < right){
-
-            int middle = left + (right - left) / 2;
-            int g = isGreaterThan(middle);
-            if(g == 0){
+            int middle = left + (right - left) / 2; // calculate the middle
+            int g = isGreaterThan(middle); // test the middle
+            if(g == 0){ // if found
                 return middle;
             }
-            else if(g > 0){
-                right = middle;
+            else if(g > 0){ // if middle is greater than the target
+                right = middle; // right is the upper bound (exclusive)
             }
             else { // g < 0
-                left = middle + 1;
+                left = middle + 1; // left is the lower bound (inclusive)
             }
         }
         return left;
