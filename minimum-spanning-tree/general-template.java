@@ -10,7 +10,7 @@ class Solution {
         PriorityQueue<Edge> q = new PriorityQueue(edgeComparator);
         // load Edges to q
         
-        DSU dsu = new DSU(n + 1);
+        DSU dsu = new DSU(n); // total number of vertices
         int cost = 0;
         while(dsu.n > 1){ // while all vertices were not connected
             Edge e = q.remove();
