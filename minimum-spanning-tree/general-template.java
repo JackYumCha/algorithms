@@ -14,7 +14,7 @@ class Solution {
         int cost = 0;
         while(dsu.n > 1){ // while all vertices were not connected
             Edge e = q.remove();
-            if(dsu.find(e.from) == dsu.find(e.to)) continue; // while all 
+            if(dsu.find(e.from) == dsu.find(e.to)) continue; // if from and to are already connected, ignore this edge.
             cost += e.cost;
             dsu.union(e.from, e.to);
         }
