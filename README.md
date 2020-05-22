@@ -1,2 +1,2 @@
 # algorithms
-repo for share algorithms
+repo for sharing algorithms
