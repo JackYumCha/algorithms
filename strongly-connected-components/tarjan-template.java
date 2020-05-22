@@ -18,19 +18,24 @@ class Solution {
         i = 0;
         dfs(0, -1);
     }
-    void dfs(int from, int source){
-        index[from] = i;
-        group[from] = i;
+    void dfs(int current, int from){
+        index[current] = i;
+        group[current] = i;
         i++;
-        boolean blockSource = true;
-        for(int to : cn[from]){
+        boolean blockFrom = true; // undirected graph only
+        for(int to : cn[current]){
             // only for undirected graph, because you can't go back with directed graph
-            if(to == source && blockSource ) { // block only once, if there are more than one way back
-                blockSource = false;
+            if(to == from && blockFrom ) { // block only once, if there are more than one way back
+                blockFrom = false;
                 continue;
             }
-            if(index[to] == -1) dfs(to, from);
-            group[from] = Math.min(group[from], group[to]);
+            if(index[to] == -1){
+                dfs(to, current);
+                if(index[to] == group[to) {
+                    // current ==> to is a critical edge !!!
+                }
+            }
+            group[current] = Math.min(group[current], group[to]);
         }
     }
 }
