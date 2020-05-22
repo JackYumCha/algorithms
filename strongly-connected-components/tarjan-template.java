@@ -31,7 +31,7 @@ class Solution {
             }
             if(index[to] == -1){
                 dfs(to, current);
-                if(index[to] == group[to) {
+                if(index[to] == group[to]) {
                     // current ==> to is a critical edge !!!
                 }
             }
