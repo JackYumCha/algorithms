@@ -3,7 +3,7 @@ class Solution {
     int n;
     public int backToPosition(int[] nums) {
         ns = nums;
-        n = ns.length - 1;
+        n = ns.length;
         for(int i = 0; i < n; i++){
             find(i, true);
         }
