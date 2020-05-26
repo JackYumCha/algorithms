@@ -7,7 +7,7 @@ class Solution {
         for(int i = 0; i < n; i++){
             find(i, true);
         }
-        return 1;
+        return ???
     }
     int find(int index, boolean start){
         int j = ns[index];
