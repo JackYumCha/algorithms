@@ -1,7 +1,7 @@
 class Solution {
     int[] ns;
     int n;
-    public int findDuplicate(int[] nums) {
+    public int backToPosition(int[] nums) {
         ns = nums;
         n = ns.length - 1;
         for(int i = 0; i < n; i++){
