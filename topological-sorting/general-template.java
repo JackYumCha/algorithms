@@ -30,6 +30,6 @@ class Solution {
             }
         }
         return count == n; // true when there is a solution
-        return orders; // return the orders of a topological sorting solution
+        // return orders; // return the orders of a topological sorting solution
     }
 }
