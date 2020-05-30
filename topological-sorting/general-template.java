@@ -7,7 +7,7 @@ class Solution {
         }
         for(int[] edge : edges){
             dependencies[edge[1]]++;
-            toNodes[pr[0]].add(edge[1]);
+            toNodes[edge[0]].add(edge[1]);
         }
         LinkedList<Integer> q = new LinkedList();
         int count = 0;
