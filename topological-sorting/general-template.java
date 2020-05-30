@@ -5,9 +5,9 @@ class Solution {
         for(int i = 0; i < n; i++){
             toNodes[i] = new ArrayList();
         }
-        for(int[] pr : prs){
-            dependencies[pr[1]]++;
-            toNodes[pr[0]].add(pr[1]);
+        for(int[] edge : edges){
+            dependencies[edge[1]]++;
+            toNodes[pr[0]].add(edge[1]);
         }
         LinkedList<Integer> q = new LinkedList();
         int count = 0;
